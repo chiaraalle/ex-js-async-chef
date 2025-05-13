@@ -15,12 +15,17 @@ Gestire gli errori con try/catch
 
 
 async function getChefBirthday(id) {
-    const recipe = await fetch(`https://dummyjson.com/recipes/${id}`);
-    const recipeData = await recipe.json();
-    const chefUser = await fetch(`https://dummyjson.com/users/${recipeData.userId}`)
-    const chefBirthday = await chefUser.json();
-    return chefBirthday;
+    try{
+        const recipe = await fetch(`https://dummyjson.com/recipes/${id}`);
+        const recipeData = await recipe.json();
+        const chefUser = await fetch(`https://dummyjson.com/users/${recipeData.userId}`)
+        const chefBirthday = await chefUser.json();
+        return chefBirthday;
+    } catch (error){
+     console.error('Error:', error);
+    }
 }
+
 
 getChefBirthday(1)
     .then(chefBirthday => console.log('La data di nascita è:', chefBirthday.birthDate))
